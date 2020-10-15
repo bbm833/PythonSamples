@@ -9,6 +9,7 @@ class PhoneBook:
         self.phone_book_file_name = phone_book_file_name
 
     def add_contact(self, name, phone_number):
+        """Add new contact to phone book."""
         if name not in self.phone_book:
             self.phone_book[name] = phone_number
             return True
@@ -26,19 +27,23 @@ class PhoneBook:
 
     @__function_generator
     def update_contact(self, name, phone_number):
+        """Update an existing contact in the phone book."""
         self.phone_book[name] = phone_number
         return True
 
     @__function_generator
     def delete_contact(self, name):
+        """Delete an existing contact."""
         del self.phone_book[name]
         return True
 
     @__function_generator
     def find_contact(self, name):
+        """Return the phone number of a contact."""
         return self.phone_book[name]
 
     def print(self):
+        """Print the content of the phone book."""
         print("\n----------------------------------------------------------------------------")
         print("Name\t\t\t\tPhone Number")
         for name, phone_number in self.phone_book.items():
@@ -46,6 +51,7 @@ class PhoneBook:
         print("----------------------------------------------------------------------------\n")
 
     def read_phone_book_file(self):
+        """Load content of a phone book file."""
         is_file_read = True
         try:
             with open(self.phone_book_file_name, 'rb') as phone_book_file:
@@ -55,6 +61,7 @@ class PhoneBook:
         return is_file_read
 
     def write_phone_book_file(self):
+        """Write content of the phone book in memory to of a phone book file."""
         is_file_written = True
         try:
             with open(self.phone_book_file_name, 'wb') as phone_book_file:
@@ -74,6 +81,7 @@ class PhoneBookApplication:
 
     @staticmethod
     def print_menu():
+        """Print menu."""
         print("""
 ############################################################################
 #                                                                          #
@@ -89,6 +97,7 @@ class PhoneBookApplication:
 ############################################################################""")
 
     def add_contact(self):
+        """Get the name and number of a contact and add it as new contact."""
         name = self.__get_name_from_console()
         phone_number = self.__get_number_from_console()
 
@@ -106,6 +115,7 @@ class PhoneBookApplication:
             self.__write_phone_book_file()
 
     def update_contact(self, name=None, phone_number=None):
+        """Get the name and number of an existing contact and  update the number."""
         if name is None:
             name = self.__get_name_from_console()
 
@@ -120,6 +130,7 @@ class PhoneBookApplication:
             print(f"'{name}' is not in the phone book.")
 
     def find_contact(self):
+        """Get the name of contact and add display the phone number."""
         name = self.__get_name_from_console()
         phone_number = self.phone_book.find_contact(name)
 
@@ -129,6 +140,7 @@ class PhoneBookApplication:
             print(f"'{name}' is not in phone book.")
 
     def delete_contact(self):
+        """Get the name of contact and delete it."""
         name = self.__get_name_from_console()
         is_confirmed = self.__is_operation_confirmed(f"Do you want to delete contact '{name}' [Y/n]: ")
 
@@ -141,23 +153,28 @@ class PhoneBookApplication:
                 print(f"'{name}' is not in the phone book.")
 
     def print_phone_book(self):
+        """Print phone book."""
         self.phone_book.print()
 
     def __write_phone_book_file(self):
+        """Update phone book file."""
         is_file_written = self.phone_book.write_phone_book_file()
         if not is_file_written:
             print("Phone book file could not be updated")
 
     @staticmethod
     def __get_name_from_console():
+        """Get contact name from the user."""
         return str(input("Enter the name of the contact: "))
 
     @staticmethod
     def __get_number_from_console():
+        """Get phone number from the user."""
         return str(input("Enter the phone number of the contact: "))
 
     @staticmethod
     def __is_operation_confirmed(message):
+        """Ask confirmation from the user."""
         while True:
             answer = str(input(message))
             if answer == "Y" or answer == "y":
