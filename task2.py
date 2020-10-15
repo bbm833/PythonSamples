@@ -4,24 +4,6 @@ class PhoneBook:
     def __init__(self):
         self.phone_book = {}
 
-    def __function_generator__(function):
-        def phone_book_operation(self, *args):
-            name = args[0]
-            if name in self.phone_book:
-                function(self, *args)
-                return True
-            else:
-                return False
-        return phone_book_operation
-
-    @__function_generator__
-    def update_contact(self, name, phone_number):
-        self.phone_book[name] = phone_number
-
-    @__function_generator__
-    def delete_contact(self, name):
-        del self.phone_book[name]
-
     def add_contact(self, name, phone_number):
         if name not in self.phone_book:
             self.phone_book[name] = phone_number
@@ -29,12 +11,28 @@ class PhoneBook:
 
         return False
 
+    def __function_generator__(function):
+        def phone_book_operation(self, *args):
+            name = args[0]
+            if name in self.phone_book:
+                return function(self, *args)
+            else:
+                return None
+        return phone_book_operation
+
+    @__function_generator__
+    def update_contact(self, name, phone_number):
+        self.phone_book[name] = phone_number
+        return True
+
+    @__function_generator__
+    def delete_contact(self, name):
+        del self.phone_book[name]
+        return True
+
+    @__function_generator__
     def find_contact(self, name):
-        if name in self.phone_book:
-            return self.phone_book[name]
-
-        return ''
-
+        return self.phone_book[name]
 
     def print(self):
         print("\n----------------------------------------------------------------------------")
