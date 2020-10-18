@@ -44,12 +44,12 @@ class PhoneBook:
     def find_all(self):
         return self.phone_book.items()
 
-    def read_phone_book_file(self):
+    def read_phone_book(self):
         """Load content of a phone book file."""
         is_file_read, self.phone_book = self.serializer.read()
         return is_file_read
 
-    def write_phone_book_file(self):
+    def write_phone_book(self):
         """Write content of the phone book in memory to of a phone book file."""
         is_file_updated = self.serializer.write(self.phone_book)
         return is_file_updated
