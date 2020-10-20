@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
-from phonebook import config_type
+from phonebook import input_type
 
-if config_type == 'json':
+if input_type == 'json':
     import json as serializer
     SerializerError = serializer.decoder.JSONDecodeError
     file_type = 't'
